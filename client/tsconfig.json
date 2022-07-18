@@ -5,6 +5,9 @@
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "outDir": "./public",
+    "types": ["webpack-env"]
   },
+  "include": ["./src/**/*"]
 }

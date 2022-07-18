@@ -5,11 +5,32 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "command": "npm run start",
+            "name": "Launch Client",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}/client"
+        },
+        {
             "command": "npm run dev",
-            "name": "Launch Dev",
+            "name": "Launch Server",
             "request": "launch",
             "type": "node-terminal",
             "cwd": "${workspaceFolder}/api"
         },
+        {
+            "command": "npx prisma studio",
+            "name": "Launch DB Explorer",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}/api"
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Launch Dev",
+            "configurations": ["Launch Server", "Launch DB Explorer", "Launch Client"],
+            "stopAll": true
+        }
     ]
 }

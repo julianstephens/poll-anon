@@ -1,12 +1,15 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "./dist",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "noUnusedLocals": true,
     "suppressImplicitAnyIndexErrors": true,
     "pretty": true,
     "removeComments": true,
-  }
+  },
+  "include": [
+    "./src/**/*"
+  ]
 }
