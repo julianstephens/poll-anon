@@ -1,10 +1,7 @@
 import { ApolloServer } from "apollo-server-express";
 import * as GraphiQL from "apollo-server-module-graphiql";
-import * as cors from "cors";
-import * as express from "express";
-import { execute, subscribe } from "graphql";
+import express from "express";
 import { createServer, Server } from "http";
-import { SubscriptionServer } from "subscriptions-transport-ws";
 import * as url from "url";
 import { context } from "./context";
 import schema from "./schema";
@@ -13,6 +10,7 @@ import {
   ApolloServerPluginLandingPageGraphQLPlayground
 
 } from "apollo-server-core";
+import { WebSocketServer } from "ws";
 
 type ExpressGraphQLOptionsFunction = (
   req?: express.Request,
@@ -46,7 +44,7 @@ export default async (port: number): Promise<Server> => {
 
   const server: Server = createServer(app);
 
-  app.use("*", cors({ origin: "http://localhost:3000", credentials: true }));
+  // app.use("*");
 
   const apolloServer = new ApolloServer({
     // playground: false,
@@ -54,12 +52,14 @@ export default async (port: number): Promise<Server> => {
     context: context,
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground(),
-    ]
+    ],
+    csrfPrevention: true,
+    cache: "bounded",
   });
 
   await apolloServer.start();
 
-  apolloServer.applyMiddleware({ app, path: "/graphql" });
+  apolloServer.applyMiddleware({ app, path: "/graphql", cors: { origin: "http://localhost:3000", credentials: true } });
 
   if (module.hot) {
     app.use(
@@ -80,17 +80,10 @@ export default async (port: number): Promise<Server> => {
   return new Promise<Server>(resolve => {
     server.listen(port, () => {
       // tslint:disable-next-line
-      new SubscriptionServer(
-        {
-          execute,
-          schema,
-          subscribe
-        },
-        {
-          path: "/subscriptions",
-          server
-        }
-      );
+      new WebSocketServer({
+        server: server,
+        path: "/subscriptions"
+      })
       resolve(server);
     });
   });

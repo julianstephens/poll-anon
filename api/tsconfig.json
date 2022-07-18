@@ -1,35 +1,12 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "commonjs",
-    "lib": [
-      "es2019",
-      "dom"
-    ],
-    "rootDir": "src",
     "outDir": "dist",
-    "resolveJsonModule": true,
     "sourceMap": true,
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": false,
-    "allowJs": true,
     "noUnusedLocals": true,
-    "jsx": "react",
-    "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": true,
     "pretty": true,
     "removeComments": true,
-    "skipLibCheck": true
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  }
 }

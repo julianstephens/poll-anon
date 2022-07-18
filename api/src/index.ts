@@ -1,7 +1,8 @@
+import dotenv from "dotenv";
 import { Server } from 'http';
+import * as startServer from './server';
 
-import startServer from './server';
-require('dotenv').config();
+dotenv.config();
 
 try {
   const PORT = 8080;
@@ -26,7 +27,7 @@ try {
   const firstStartInDevMode =
     module.hot && process.env.LAST_EXIT_CODE === '0' && (!module.hot.data || !module.hot.data.hotReloaded);
 
-  startServer(PORT).then(serverInstance => {
+  startServer.default(PORT).then(serverInstance => {
     if (!module.hot || firstStartInDevMode) {
       console.log(`GraphQL Server is now running on http://localhost:${PORT}`);
     }

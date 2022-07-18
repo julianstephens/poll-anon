@@ -17,6 +17,6 @@ export const context = ({ req }: { req: Request }): Context => {
   return {
     req,
     prisma,
-    userId: userId ? userId : null
+    userId: userId ? userId : undefined
   };
 };

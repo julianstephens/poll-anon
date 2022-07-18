@@ -6,16 +6,6 @@ export interface AuthTokenPayload {
   userId: number;
 }
 
-export const getJwtToken = () => {
-  return typeof window !== "undefined" ? localStorage.getItem("jwt") : null;
-};
-
-export const setJwtToken = token => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("jwt", token);
-  }
-};
-
 export const getUserId = token => {
   try {
     const decoded = jwt.verify(token, `${JWT_SECRET}`);
