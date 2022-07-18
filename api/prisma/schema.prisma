@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique
+  password     String
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  polls        Polls[]
+  starredPolls StarredPolls[]
+
+  @@map("users")
+}
+
+model Polls {
+  id           Int            @id @default(autoincrement())
+  title        String
+  description  String?
+  expDate      DateTime?
+  showResults  Boolean        @default(false)
+  userId       Int
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  slug         String         @unique
+  owner        Users          @relation(fields: [userId], references: [id])
+  items        PollItems[]
+  starredPolls StarredPolls[]
+
+  @@map("polls")
+}
+
+model StarredPolls {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  pollId    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  poll      Polls    @relation(fields: [pollId], references: [id])
+  user      Users    @relation(fields: [userId], references: [id])
+
+  @@map("starred_polls")
+}
+
+model PollItems {
+  id        Int      @id @default(autoincrement())
+  name      String
+  rank      Int?
+  numVotes  Int      @default(0) @map("num_votes")
+  pollId    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  poll      Polls    @relation(fields: [pollId], references: [id])
+
+  @@map("poll_items")
+}
