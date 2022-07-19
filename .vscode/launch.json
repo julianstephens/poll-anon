@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "command": "npm run watch:style",
+            "name": "Watch CSS",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}/client"
+        },
+        {
             "command": "npm run start",
             "name": "Launch Client",
             "request": "launch",
@@ -29,7 +36,7 @@
     "compounds": [
         {
             "name": "Launch Dev",
-            "configurations": ["Launch Server", "Launch DB Explorer", "Launch Client"],
+            "configurations": ["Launch Server", "Launch DB Explorer", "Launch Client", "Watch CSS"],
             "stopAll": true
         }
     ]

@@ -8,7 +8,7 @@
     "noEmit": true,
     "jsx": "preserve",
     "outDir": "./public",
-    "types": ["webpack-env"],
+    "types": ["webpack-env", "jest", "@testing-library/jest-dom"],
   },
   "include": ["./src/**/*", "types"]
 }

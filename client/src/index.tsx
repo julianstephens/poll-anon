@@ -1,8 +1,8 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import ReactDOM from "react-dom/client";
 import { GlobalStyles } from "twin.macro";
-import App from "./App";
-import "./index.css";
+import Home from "@components/Home/Home";
+import "@assets/css/tailwind.css";
 import reportWebVitals from "./reportWebVitals";
 
 const client = new ApolloClient({
@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <ApolloProvider client={client}>
     <GlobalStyles />
-    <App />
+    <Home />
   </ApolloProvider>
 );
 

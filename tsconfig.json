@@ -30,7 +30,8 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["client/src/assets/*"],
-      "@fragments/*": ["client/src/fragments/*"]
+      "@fragments/*": ["client/src/fragments/*"],
+      "@components/*": ["client/src/components/*"]
     }
   },
   "include": [
