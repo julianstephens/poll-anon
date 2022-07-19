@@ -9,7 +9,8 @@
     "module": "CommonJS",
     "lib": [
       "es2019",
-      "dom"
+      "dom",
+      "dom.iterable"
     ],
     "allowJs": true,
     "declaration": true,
@@ -25,7 +26,12 @@
     "moduleResolution": "node",
     "rootDirs": [
       "**/src"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["client/src/assets/*"],
+      "@fragments/*": ["client/src/fragments/*"]
+    }
   },
   "include": [
     "**/src/**/*.ts",

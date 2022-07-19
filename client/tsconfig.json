@@ -1,13 +1,14 @@
 {
+  "files": ["types/*"],
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "outDir": "./public",
-    "types": ["webpack-env"]
+    "types": ["webpack-env"],
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "types"]
 }

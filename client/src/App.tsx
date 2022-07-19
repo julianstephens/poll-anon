@@ -1,6 +1,6 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import User from "./graphql/fragments/user";
+import logo from "./logo.svg";
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <User />
     </div>
   );
 }
