@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
+import Loader from "@components/Loader";
 import { USER } from "..";
-import DotLoader from "react-spinners/DotLoader";
 
 const User = () => {
   const { data, loading, error } = useQuery(USER);
 
-  if (loading) return <DotLoader />;
+  if (loading) return <Loader />;
   if (error) return <p>Error :(</p>;
 
   return <h3>{data.user.name}</h3>;

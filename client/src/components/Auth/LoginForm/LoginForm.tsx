@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { useAuth } from "@common/common.hooks";
+import { IAuthResp, IFormInput } from "@common/common.models";
+import Loader from "@components/Loader";
+import isEmpty from "lodash/isEmpty";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CgDanger } from "react-icons/cg";
-import isEmpty from "lodash/isEmpty";
+import { useNavigate } from "react-router-dom";
+import { LOGIN } from "../../../graphql";
 import {
   Form,
-  FormRow,
   FormCol,
-  FormInput,
   FormError,
+  FormInput,
+  FormRow,
   FormSubmit,
 } from "../AuthCommon";
-import { useMutation } from "@apollo/client";
-import { LOGIN } from "../../../graphql";
-import { IAuthResp, IFormInput } from "@common/common.models";
-import { useAuth } from "@common/common.hooks";
-import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -59,62 +60,77 @@ const LoginForm = () => {
 
     if (resp) {
       setLoginResp(resp);
+      resetInput();
       verifyAuth();
     }
   };
 
   return (
     <div>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormRow>
-          <FormCol>
-            <FormInput
-              type="email"
-              {...register("email", {
-                required: true,
-                pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              })}
-              placeholder="Email"
-              onChange={handleFormChange}
-            />
-            {errors.email && (
-              <FormError>
-                <span className="pr-1 pt-1">
-                  <CgDanger />
-                </span>
-                Please provide a valid email address.
-              </FormError>
-            )}
-          </FormCol>
-        </FormRow>
-        <FormRow>
-          <FormCol>
-            <FormInput
-              type="password"
-              {...register("password", { required: true })}
-              placeholder="Password"
-              onChange={handleFormChange}
-            />
-            {errors.password && (
-              <FormError>
-                <span className="pr-1 pt-1">
-                  <CgDanger />
-                </span>
-                This is required.
-              </FormError>
-            )}
-          </FormCol>
-        </FormRow>
-        <FormRow buttonRow={true}>
-          <FormSubmit
-            type="submit"
-            disabled={!isDirty || !isEmpty(errors) || loading}
-          >
-            Submit
-          </FormSubmit>
-        </FormRow>
-      </Form>
-      {/* {loading && <Loader />} */}
+      {error && !loading && (
+        <FormError>
+          <span className="pr-1 pt-1">
+            <CgDanger />
+          </span>
+          Hmmm something went wrong. Please try again.
+        </FormError>
+      )}
+      {!loading && (
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormRow>
+            <FormCol>
+              <FormInput
+                type="email"
+                {...register("email", {
+                  required: true,
+                  pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                })}
+                placeholder="Email"
+                onChange={handleFormChange}
+              />
+              {errors.email && (
+                <FormError>
+                  <span className="pr-1 pt-1">
+                    <CgDanger />
+                  </span>
+                  Please provide a valid email address.
+                </FormError>
+              )}
+            </FormCol>
+          </FormRow>
+          <FormRow>
+            <FormCol>
+              <FormInput
+                type="password"
+                {...register("password", { required: true })}
+                placeholder="Password"
+                onChange={handleFormChange}
+              />
+              {errors.password && (
+                <FormError>
+                  <span className="pr-1 pt-1">
+                    <CgDanger />
+                  </span>
+                  This is required.
+                </FormError>
+              )}
+            </FormCol>
+          </FormRow>
+          <FormRow buttonRow={true}>
+            <FormSubmit
+              type="submit"
+              disabled={!isDirty || !isEmpty(errors) || loading}
+            >
+              Submit
+            </FormSubmit>
+          </FormRow>
+        </Form>
+      )}
+      {loading && (
+        <div className="w-fit mx-auto">
+          <Loader />
+        </div>
+      )}
     </div>
   );
 };
