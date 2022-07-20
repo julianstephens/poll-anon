@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { useAuth } from "@common/common.hooks";
-import { IAuthResp, IFormInput } from "@common/common.models";
-import Loader from "@components/Loader";
+import { IAuthResp, IAuthInput } from "@common/common.models";
+import Loader from "@common/Loader";
 import isEmpty from "lodash/isEmpty";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -20,14 +20,14 @@ import {
 const LoginForm = () => {
   const navigate = useNavigate();
   const { setAuthToken } = useAuth();
-  const [loginInput, setLoginInput] = useState({ email: "", password: "" });
-  const [loginResp, setLoginResp] = useState<IAuthResp>();
+  const [loginInput, setLoginInput] = useState<Partial<IAuthInput>>({});
+  const [loginResp, setLoginResp] = useState<Partial<IAuthResp>>({});
 
   const {
     register,
     formState: { errors, isDirty },
     handleSubmit,
-  } = useForm<IFormInput>({ mode: "onBlur" });
+  } = useForm<IAuthInput>({ mode: "onBlur" });
 
   const [login, { loading, error }] = useMutation(LOGIN);
 
@@ -43,18 +43,18 @@ const LoginForm = () => {
     const token = loginResp?.token;
     if (token) {
       setAuthToken(token);
-      navigate("/users/" + loginResp?.user.id);
+      navigate("/users/" + loginResp?.user?.id);
     }
   };
 
-  const onSubmit: SubmitHandler<IFormInput> = async (input, event) => {
+  const onSubmit: SubmitHandler<IAuthInput> = async (input, event) => {
     event?.preventDefault();
 
     const { email, password } = input;
 
     const resp = (
       await login({
-        variables: { email: email, password: password },
+        variables: { email, password },
       })
     ).data?.login as IAuthResp;
 

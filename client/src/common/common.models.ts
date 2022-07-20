@@ -1,7 +1,8 @@
-export interface IFormInput {
+export interface IAuthInput {
   name?: string;
   email: string;
   password: string;
+  confirmPassword?: string;
 }
 
 export interface IAuthResp {

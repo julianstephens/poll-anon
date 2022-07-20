@@ -1,8 +1,14 @@
+import Header from "@common/Header";
 import User from "@fragments/user";
 import React from "react";
 
 const Profile = () => {
-  return <User />;
+  return (
+    <>
+      <Header />
+      <User />
+    </>
+  );
 };
 
 export default Profile;

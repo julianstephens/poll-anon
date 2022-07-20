@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import Loader from "@components/Loader";
+import Loader from "@common/Loader";
 import { USER } from "..";
 
 const User = () => {
