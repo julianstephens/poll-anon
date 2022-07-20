@@ -1,13 +1,34 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloProvider,
+  createHttpLink,
+  InMemoryCache,
+} from "@apollo/client";
+import "@assets/css/tailwind.css";
 import ReactDOM from "react-dom/client";
 import { GlobalStyles } from "twin.macro";
-import Home from "@components/Home/Home";
-import "@assets/css/tailwind.css";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { setContext } from "@apollo/client/link/context";
+
+const httpLink = createHttpLink({
+  uri: "http://localhost:8080/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("JWT_TOKEN");
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
 
 const client = new ApolloClient({
-  uri: "http://localhost:8080/graphql",
   cache: new InMemoryCache(),
+  link: authLink.concat(httpLink),
 });
 
 const root = ReactDOM.createRoot(
@@ -16,7 +37,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <ApolloProvider client={client}>
     <GlobalStyles />
-    <Home />
+    <App />
   </ApolloProvider>
 );
 

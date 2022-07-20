@@ -1,9 +1,15 @@
 import * as jwt from "jsonwebtoken";
+import { Context } from "../context";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export interface AuthTokenPayload {
   userId: number;
+}
+
+export const getToken = (context: Context) => {
+  const bearer = context.req.headers.authorization || '';
+  return bearer.replace("Bearer ", "");
 }
 
 export const getUserId = token => {
@@ -14,6 +20,6 @@ export const getUserId = token => {
     const userId = (decoded as AuthTokenPayload).userId;
     return userId;
   } catch (e) {
-    return null;
+    return undefined;
   }
 };

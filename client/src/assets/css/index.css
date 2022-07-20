@@ -4,8 +4,17 @@
 @tailwind utilities;
 @layer base {
     html {
+        font-family: 'Noto Sans', sans-serif;
         margin: 4rem;
         background: #1A1B2F;
         color: #F7F7F8;
+    }
+    button,
+    .btn {
+        cursor: pointer;
+    }
+    input:focus,
+    textarea:focus {
+        outline: none;
     }
 }

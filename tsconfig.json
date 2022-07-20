@@ -30,8 +30,9 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["client/src/assets/*"],
-      "@fragments/*": ["client/src/fragments/*"],
-      "@components/*": ["client/src/components/*"]
+      "@fragments/*": ["client/src/graphql/fragments/*"],
+      "@components/*": ["client/src/components/*"],
+      "@common/*": ["client/src/common/*"]
     }
   },
   "include": [

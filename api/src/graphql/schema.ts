@@ -18,6 +18,7 @@ const typeDefs = /* GraphQL */`
         description: String
         expDate: DateTime
         showResults: Boolean!
+        slug: String!
         owner: User!
         items: [PollItem]
     }
@@ -56,7 +57,7 @@ const typeDefs = /* GraphQL */`
     }
 
     type Query {
-        user(id: Int!): User
+        user: User
         poll(id: String!): Poll
     }
 

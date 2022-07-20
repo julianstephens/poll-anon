@@ -10,8 +10,9 @@ module.exports = {
     },
     webpack: {
         alias: {
+            '@common': path.resolve(__dirname, "src/common/"),
             '@components': path.resolve(__dirname, "src/components/"),
-            '@fragments': path.resolve(__dirname, "src/fragments/"),
+            '@fragments': path.resolve(__dirname, "src/graphql/fragments/"),
             '@assets': path.resolve(__dirname, "src/assets/")
         }
     }

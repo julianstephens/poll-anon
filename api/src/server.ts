@@ -44,10 +44,7 @@ export default async (port: number): Promise<Server> => {
 
   const server: Server = createServer(app);
 
-  // app.use("*");
-
   const apolloServer = new ApolloServer({
-    // playground: false,
     schema,
     context: context,
     plugins: [

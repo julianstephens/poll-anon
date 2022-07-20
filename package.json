@@ -36,9 +36,5 @@
         "module-alias": "^2.2.2",
         "tsconfig-paths": "^4.0.0",
         "tscpaths": "^0.0.9"
-    },
-    "_moduleAlisas": {
-        "@assets": "client/public/assests",
-        "@fragments": "client/public/fragments"
     }
 }
