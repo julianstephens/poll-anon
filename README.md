@@ -24,20 +24,7 @@ Import the collection schema:
 ./pocketbase import pb_collections.json
 ```
 
-**3. Configure rate limits (recommended)**
-
-Open the PocketBase admin UI at <http://localhost:8090/_/> and go to **Settings → Rate limits**. Add a rule to limit abuse:
-
-- Label: any (e.g. `default`)
-- Duration: `1s`
-- Max requests: `10`
-- Audience: leave blank to apply to all routes
-
-This caps each IP to 10 requests per second across all API endpoints.
-
-A stricter daily cap is also enforced server-side via `pb_hooks/rate_limit.pb.js`: each IP is limited to **5 poll creations per day**. Adjust `MAX_POLLS_PER_DAY` in that file to change the limit.
-
-**4. Start the frontend**
+**2. Start the frontend**
 
 ```sh
 pnpm install
