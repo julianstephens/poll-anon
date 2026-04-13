@@ -1,0 +1,16 @@
+{
+  "projectId": "wg0sw84gk8s4g4g8k0o8w4c0",
+  "destinationId": "ugsk8w0w0c0oc08wc4488s4w",
+  "serverId": "jk8w8scsg0gkw804ockg8g80",
+  "environmentName": "production",
+  "resources": [
+    {
+      "name": "Poll Anon",
+      "description": "The Poll Anon service.",
+      "dockerImageName": "ghcr.io/julianstephens/poll-anon",
+      "envSecretName": "COOLIFY_ENV_POLL_ANON",
+      "domains": "http://poll-anon.cyborgdev.cloud",
+      "portsExposes": "80"
+    }
+  ]
+}

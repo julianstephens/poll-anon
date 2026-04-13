@@ -1,0 +1,21 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}

@@ -1,0 +1,233 @@
+[
+  {
+    "id": "poll_anon_polls_collection_id",
+    "name": "poll_anon_polls",
+    "type": "base",
+    "system": false,
+    "fields": [
+      {
+        "id": "poll_title",
+        "name": "title",
+        "type": "text",
+        "required": true,
+        "presentable": false,
+        "min": 1,
+        "max": 200,
+        "pattern": ""
+      },
+      {
+        "id": "poll_description",
+        "name": "description",
+        "type": "text",
+        "required": false,
+        "presentable": false,
+        "min": null,
+        "max": 2000,
+        "pattern": ""
+      },
+      {
+        "id": "poll_creator_id",
+        "name": "creatorId",
+        "type": "text",
+        "required": true,
+        "presentable": false,
+        "min": 1,
+        "max": 100,
+        "pattern": ""
+      },
+      {
+        "id": "poll_is_locked",
+        "name": "isLocked",
+        "type": "bool",
+        "required": false,
+        "presentable": false
+      },
+      {
+        "id": "poll_submission_deadline",
+        "name": "submissionDeadline",
+        "type": "date",
+        "required": true,
+        "presentable": false,
+        "min": "",
+        "max": ""
+      },
+      {
+        "id": "poll_voting_deadline",
+        "name": "votingDeadline",
+        "type": "date",
+        "required": true,
+        "presentable": false,
+        "min": "",
+        "max": ""
+      },
+      {
+        "id": "poll_created",
+        "name": "created",
+        "type": "autodate",
+        "onCreate": true,
+        "onUpdate": false,
+        "presentable": false,
+        "hidden": false
+      },
+      {
+        "id": "poll_updated",
+        "name": "updated",
+        "type": "autodate",
+        "onCreate": true,
+        "onUpdate": true,
+        "presentable": false,
+        "hidden": false
+      }
+    ],
+    "indexes": [],
+    "listRule": "",
+    "viewRule": "",
+    "createRule": "",
+    "updateRule": "isLocked = false || creatorId = @request.body.creatorId",
+    "deleteRule": "creatorId = @request.body.creatorId",
+    "options": {}
+  },
+  {
+    "id": "poll_anon_poll_options_collection_id",
+    "name": "poll_anon_poll_options",
+    "type": "base",
+    "system": false,
+    "fields": [
+      {
+        "id": "option_poll_id",
+        "name": "pollId",
+        "type": "relation",
+        "required": true,
+        "presentable": false,
+        "collectionId": "poll_anon_polls_collection_id",
+        "cascadeDelete": true,
+        "minSelect": null,
+        "maxSelect": 1
+      },
+      {
+        "id": "option_title",
+        "name": "title",
+        "type": "text",
+        "required": true,
+        "presentable": true,
+        "min": 1,
+        "max": 200,
+        "pattern": ""
+      },
+      {
+        "id": "option_description",
+        "name": "description",
+        "type": "text",
+        "required": false,
+        "presentable": false,
+        "min": null,
+        "max": 1000,
+        "pattern": ""
+      },
+      {
+        "id": "option_submitted_by",
+        "name": "submittedBy",
+        "type": "text",
+        "required": true,
+        "presentable": false,
+        "min": 1,
+        "max": 100,
+        "pattern": ""
+      },
+      {
+        "id": "option_created",
+        "name": "created",
+        "type": "autodate",
+        "onCreate": true,
+        "onUpdate": false,
+        "presentable": false,
+        "hidden": false
+      },
+      {
+        "id": "option_updated",
+        "name": "updated",
+        "type": "autodate",
+        "onCreate": true,
+        "onUpdate": true,
+        "presentable": false,
+        "hidden": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX idx_poll_options_pollId ON poll_anon_poll_options (pollId)"
+    ],
+    "listRule": "",
+    "viewRule": "",
+    "createRule": "@request.body.pollId.submissionDeadline > @now",
+    "updateRule": "@request.body.pollId.isLocked = false && @now < @request.body.pollId.submissionDeadline",
+    "deleteRule": "@request.body.pollId.isLocked = false && submittedBy = @request.body.submittedBy",
+    "options": {}
+  },
+  {
+    "id": "poll_anon_votes_collection_id",
+    "name": "poll_anon_votes",
+    "type": "base",
+    "system": false,
+    "fields": [
+      {
+        "id": "vote_poll_id",
+        "name": "pollId",
+        "type": "relation",
+        "required": true,
+        "presentable": false,
+        "collectionId": "poll_anon_polls_collection_id",
+        "cascadeDelete": true,
+        "minSelect": null,
+        "maxSelect": 1
+      },
+      {
+        "id": "vote_option_id",
+        "name": "optionId",
+        "type": "relation",
+        "required": true,
+        "presentable": false,
+        "collectionId": "poll_anon_poll_options_collection_id",
+        "cascadeDelete": true,
+        "minSelect": null,
+        "maxSelect": 1
+      },
+      {
+        "id": "vote_voter_id",
+        "name": "voterId",
+        "type": "text",
+        "required": true,
+        "presentable": false,
+        "min": 1,
+        "max": 100,
+        "pattern": ""
+      },
+      {
+        "id": "vote_created",
+        "name": "created",
+        "type": "autodate",
+        "onCreate": true,
+        "onUpdate": false,
+        "presentable": false,
+        "hidden": false
+      },
+      {
+        "id": "vote_updated",
+        "name": "updated",
+        "type": "autodate",
+        "onCreate": true,
+        "onUpdate": true,
+        "presentable": false,
+        "hidden": false
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX idx_votes_unique ON poll_anon_votes (pollId, voterId)"
+    ],
+    "listRule": "",
+    "viewRule": "",
+    "createRule": "@request.body.pollId.submissionDeadline < @now && @request.body.pollId.votingDeadline > @now",
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  }
+]
