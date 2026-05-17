@@ -2,6 +2,8 @@
 
 Anonymous polling app. Create a poll, share the ID, let anyone submit options and vote — no account required.
 
+![Poll Anon Screenshot](docs/img/landing.png)
+
 ## Stack
 
 - **Frontend** — React 19, TypeScript, Vite
