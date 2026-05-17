@@ -2,7 +2,7 @@
 
 Anonymous polling app. Create a poll, share the ID, let anyone submit options and vote — no account required.
 
-![Poll Anon Screenshot](docs/img/landing.png)
+![Poll Anon Screenshot](docs/img/cover.png)
 
 ## Stack
 
@@ -47,10 +47,10 @@ Share a poll by copying the poll ID from the detail page.
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start dev server |
-| `pnpm build` | Type-check and build |
-| `pnpm preview` | Preview production build |
-| `pnpm format` | Format source files with Prettier |
-| `pnpm lint` | Lint with ESLint |
+| Command        | Description                       |
+| -------------- | --------------------------------- |
+| `pnpm dev`     | Start dev server                  |
+| `pnpm build`   | Type-check and build              |
+| `pnpm preview` | Preview production build          |
+| `pnpm format`  | Format source files with Prettier |
+| `pnpm lint`    | Lint with ESLint                  |
